@@ -118,15 +118,6 @@ body {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
 }
-.todo .before .task input:focus,
-.todo .after .task input:focus {
-  background: #f1f1f1;
-  color: #000000;
-}
-.todo .before .task input.error,
-.todo .after .task input.error {
-  background: rgba(250, 128, 114, 0.3);
-}
 .todo .before .task button,
 .todo .after .task button {
   width: 30px;
@@ -135,11 +126,7 @@ body {
   border: 1px solid #555555;
   background: url("../../src/img/plus.png") no-repeat 50% 50%;
   background-size: 25px;
-  cursor: pointer;
   outline: none;
-}
-.todo .after .task .check {
-  cursor: initial;
 }
 .todo .after .task input {
   background: #f9f9f9;

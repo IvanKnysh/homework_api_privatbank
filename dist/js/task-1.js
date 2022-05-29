@@ -123,11 +123,43 @@ var Todo = /*#__PURE__*/function () {
 
     this.before = document.querySelector('.before');
     this.after = document.querySelector('.after');
+    this.todosAPI = 'https://jsonplaceholder.typicode.com/todos';
   }
 
   _createClass(Todo, [{
+    key: "getData",
+    value: function getData() {
+      var _this = this;
+
+      var request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', function () {
+        if (request.readyState === 4 && request.status === 200) {
+          var data = JSON.parse(request.responseText);
+          data.forEach(function (item) {
+            if (item.userId === 1) {
+              _this.showTasks(item);
+            }
+          });
+        }
+      });
+      request.open('GET', this.todosAPI);
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.send();
+    }
+  }, {
+    key: "showTasks",
+    value: function showTasks(item) {
+      if (item.completed) {
+        this.after.insertAdjacentHTML('beforeend', "\n                <div class=\"task\">\n                    <div class=\"check checked\"></div>\n                    <input type=\"text\" placeholder=\"\u0414\u043E\u0434\u0430\u0442\u0438 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F\" value=\"".concat(item.title, "\" disabled>\n                        <button></button>\n                </div>\n            "));
+      } else {
+        this.before.insertAdjacentHTML('beforeend', "\n                <div class=\"task\">\n                    <div class=\"check\"></div>\n                    <input type=\"text\" placeholder=\"\u0414\u043E\u0434\u0430\u0442\u0438 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F\" value=\"".concat(item.title, "\" disabled>\n                        <button></button>\n                </div>\n            "));
+      }
+    }
+  }, {
     key: "init",
-    value: function init() {}
+    value: function init() {
+      this.getData();
+    }
   }]);
 
   return Todo;

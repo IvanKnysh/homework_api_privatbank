@@ -56,13 +56,6 @@ body {
         outline: none;
         font-family: 'Roboto', sans-serif;
         font-weight: 300;
-        &:focus {
-          background: #f1f1f1;
-          color: #000000;
-        }
-        &.error {
-          background: rgba(250,128,114, 0.3);
-        }
       }
       button {
         width: 30px;
@@ -71,16 +64,12 @@ body {
         border: 1px solid #555555;
         background: url("../../src/img/plus.png") no-repeat 50% 50%;
         background-size: 25px;
-        cursor: pointer;
         outline: none;
       }
     }
   }
   .after {
     .task {
-      .check {
-        cursor: initial;
-      }
       input {
         background: #f9f9f9;
         color: #000000;
