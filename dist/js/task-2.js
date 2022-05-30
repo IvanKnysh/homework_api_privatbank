@@ -81,36 +81,14 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/css/task-1.scss":
-/*!*****************************!*\
-  !*** ./src/css/task-1.scss ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./src/css/task-2.scss":
-/*!*****************************!*\
-  !*** ./src/css/task-2.scss ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./src/js/task-1.js":
+/***/ "./src/js/task-2.js":
 /*!**************************!*\
-  !*** ./src/js/task-1.js ***!
+  !*** ./src/js/task-2.js ***!
   \**************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -119,7 +97,7 @@
 
 /*
 * Завдання 2
-* Список завдань
+* Калькулятор валют
 * */
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -128,16 +106,25 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-var Todo = /*#__PURE__*/function () {
-  function Todo() {
-    _classCallCheck(this, Todo);
+var CurrencyConverter = /*#__PURE__*/function () {
+  function CurrencyConverter() {
+    _classCallCheck(this, CurrencyConverter);
 
-    this.before = document.querySelector('.before');
-    this.after = document.querySelector('.after');
-    this.todosAPI = 'https://jsonplaceholder.typicode.com/todos';
+    this.change = document.querySelector('[name=change]');
+    this.receive = document.querySelector('[name=receive]');
+    this.changeSelect = document.querySelector('#changing-select');
+    this.receiveSelect = document.querySelector('#receive-select');
+    this.content = document.querySelector('.content');
+    this.getCurrencyAPI = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
   }
 
-  _createClass(Todo, [{
+  _createClass(CurrencyConverter, [{
+    key: "basic",
+    value: function basic() {
+      this.changeSelect.insertAdjacentHTML('beforeend', "<option value=\"1\">UAH</option>");
+      this.receiveSelect.insertAdjacentHTML('beforeend', "<option value=\"1\">UAH</option>");
+    }
+  }, {
     key: "getData",
     value: function getData() {
       var _this = this;
@@ -147,50 +134,82 @@ var Todo = /*#__PURE__*/function () {
         if (request.readyState === 4 && request.status === 200) {
           var data = JSON.parse(request.responseText);
           data.forEach(function (item) {
-            if (item.userId === 1) {
-              _this.showTasks(item);
+            if (item.ccy !== 'BTC') {
+              _this.changeSelect.insertAdjacentHTML('beforeend', "<option value=\"".concat(item.buy, "\">").concat(item.ccy, "</option>"));
+
+              _this.receiveSelect.insertAdjacentHTML('beforeend', "<option value=\"".concat(item.sale, "\">").concat(item.ccy, "</option>"));
             }
           });
         }
       });
-      request.open('GET', this.todosAPI);
-      request.setRequestHeader('Content-Type', 'application/json');
+      request.open('GET', this.getCurrencyAPI);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       request.send();
     }
   }, {
-    key: "showTasks",
-    value: function showTasks(item) {
-      if (item.completed) {
-        this.after.insertAdjacentHTML('beforeend', "\n                <div class=\"task\">\n                    <div class=\"check checked\"></div>\n                    <input type=\"text\" placeholder=\"\u0414\u043E\u0434\u0430\u0442\u0438 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F\" value=\"".concat(item.title, "\" disabled>\n                        <button></button>\n                </div>\n            "));
-      } else {
-        this.before.insertAdjacentHTML('beforeend', "\n                <div class=\"task\">\n                    <div class=\"check\"></div>\n                    <input type=\"text\" placeholder=\"\u0414\u043E\u0434\u0430\u0442\u0438 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F\" value=\"".concat(item.title, "\" disabled>\n                        <button></button>\n                </div>\n            "));
-      }
+    key: "changeCurrencyValue",
+    value: function changeCurrencyValue() {
+      var _this2 = this;
+
+      this.content.addEventListener('click', function (e) {
+        var target = e.target;
+        var changeSelectValue = _this2.changeSelect.value;
+        var receiveSelectValue = _this2.receiveSelect.value;
+
+        if (target.id === 'equals') {
+          _this2.receive.value = (changeSelectValue / receiveSelectValue * _this2.change.value).toFixed(2);
+        }
+      });
+    }
+  }, {
+    key: "switchCurrencies",
+    value: function switchCurrencies() {
+      var _this3 = this;
+
+      this.content.addEventListener('click', function (e) {
+        var target = e.target;
+        var change = _this3.change.value;
+        var receive = _this3.receive.value;
+        var changeSelectIndex = _this3.changeSelect.options.selectedIndex;
+        var receiveSelectIndex = _this3.receiveSelect.options.selectedIndex;
+
+        if (target.id === 'switch') {
+          if (_this3.change.value !== '' && _this3.receive.value !== '') {
+            _this3.change.value = receive;
+            _this3.receive.value = change;
+            _this3.changeSelect.selectedIndex = receiveSelectIndex;
+            _this3.receiveSelect.selectedIndex = changeSelectIndex;
+            document.querySelector('#equals').click();
+          }
+        }
+      });
     }
   }, {
     key: "init",
     value: function init() {
+      this.basic();
       this.getData();
+      this.changeCurrencyValue();
+      this.switchCurrencies();
     }
   }]);
 
-  return Todo;
+  return CurrencyConverter;
 }();
 
-var todo = new Todo();
-todo.init();
+var currencyConverter = new CurrencyConverter();
+currencyConverter.init();
 
 /***/ }),
 
-/***/ 0:
-/*!****************************************************************************!*\
-  !*** multi ./src/js/task-1.js ./src/css/task-1.scss ./src/css/task-2.scss ***!
-  \****************************************************************************/
+/***/ 1:
+/*!********************************!*\
+  !*** multi ./src/js/task-2.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/js/task-1.js */"./src/js/task-1.js");
-__webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/css/task-1.scss */"./src/css/task-1.scss");
-module.exports = __webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/css/task-2.scss */"./src/css/task-2.scss");
+module.exports = __webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/js/task-2.js */"./src/js/task-2.js");
 
 
 /***/ })

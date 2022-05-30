@@ -1,0 +1,118 @@
+// Reset CSS
+@import 'reset-css';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  background: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.currency-converter {
+  width: 300px;
+  box-shadow: 0 0 10px -3px #a1a1a1;
+  border-radius: 4px;
+  overflow: hidden;
+  .title {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(180deg, rgba(161,244,185,1) 0%, rgba(48,204,78,0.85) 50%);
+    padding: 20px 15px;
+    img {
+      width: 20px;
+      margin-right: 10px;
+    }
+    h2 {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+  .content {
+    background: #dddddd;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    .changing,
+    .receive {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      p {
+        width: 100%;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+    }
+    .btns {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      margin: 20px 0;
+      button#equals {
+        width: 50px;
+        height: 40px;
+        background: red;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 40px;
+        color: #fff;
+        font-size: 25px;
+        border: 1px solid red;
+        cursor: pointer;
+        outline: none;
+      }
+      button#switch {
+        width: 50px;
+        height: 40px;
+        border-radius: 4px;
+        border: 1px solid #aaaaaa;
+        margin-left: 5px;
+        cursor: pointer;
+        outline: none;
+        background: url("../../src/img/arrow.png") no-repeat 50% 50%;
+        background-size: 17px 30px;
+      }
+    }
+    input {
+      width: calc(100% - 70px);
+      height: 40px;
+      padding: 0 5px;
+      outline: none;
+      box-sizing: border-box;
+      text-align: right;
+      border: 2px solid #aaa;
+      border-radius: 4px;
+      font-size: 20px;
+      color: #000;
+      &:disabled {
+        background: #fff;
+      }
+      &[type="number"] {
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          appearance: none;
+          margin: 0;
+        }
+      }
+    }
+    select {
+      width: 65px;
+      height: 40px;
+      box-sizing: border-box;
+      outline: none;
+      border: 2px solid #aaa;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    //&.switched {
+    //  flex-direction: column-reverse;
+    //}
+  }
+}
+
+

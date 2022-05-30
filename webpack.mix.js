@@ -5,4 +5,6 @@ mix.options({
 });
 
 mix.js('src/js/task-1.js', 'dist/js')
-   .sass('src/css/task-1.scss', 'dist/css');
+    .js('src/js/task-2.js', 'dist/js')
+   .sass('src/css/task-1.scss', 'dist/css')
+   .sass('src/css/task-2.scss', 'dist/css');
