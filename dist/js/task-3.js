@@ -81,47 +81,14 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/css/task-1.scss":
-/*!*****************************!*\
-  !*** ./src/css/task-1.scss ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./src/css/task-2.scss":
-/*!*****************************!*\
-  !*** ./src/css/task-2.scss ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./src/css/task-3.scss":
-/*!*****************************!*\
-  !*** ./src/css/task-3.scss ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./src/js/task-1.js":
+/***/ "./src/js/task-3.js":
 /*!**************************!*\
-  !*** ./src/js/task-1.js ***!
+  !*** ./src/js/task-3.js ***!
   \**************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -129,8 +96,8 @@
 "use strict";
 
 /*
-* Завдання 2
-* Список завдань
+* Завдання 3
+* Список відділень ПриватБанку
 * */
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -139,70 +106,34 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-var Todo = /*#__PURE__*/function () {
-  function Todo() {
-    _classCallCheck(this, Todo);
-
-    this.before = document.querySelector('.before');
-    this.after = document.querySelector('.after');
-    this.todosAPI = 'https://jsonplaceholder.typicode.com/todos';
+var BranchesList = /*#__PURE__*/function () {
+  function BranchesList() {
+    _classCallCheck(this, BranchesList);
   }
 
-  _createClass(Todo, [{
-    key: "getData",
-    value: function getData() {
-      var _this = this;
-
-      var request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', function () {
-        if (request.readyState === 4 && request.status === 200) {
-          var data = JSON.parse(request.responseText);
-          data.forEach(function (item) {
-            if (item.userId === 1) {
-              _this.showTasks(item);
-            }
-          });
-        }
-      });
-      request.open('GET', this.todosAPI);
-      request.setRequestHeader('Content-Type', 'application/json');
-      request.send();
-    }
-  }, {
-    key: "showTasks",
-    value: function showTasks(item) {
-      if (item.completed) {
-        this.after.insertAdjacentHTML('beforeend', "\n                <div class=\"task\">\n                    <div class=\"check checked\"></div>\n                    <input type=\"text\" placeholder=\"\u0414\u043E\u0434\u0430\u0442\u0438 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F\" value=\"".concat(item.title, "\" disabled>\n                        <button></button>\n                </div>\n            "));
-      } else {
-        this.before.insertAdjacentHTML('beforeend', "\n                <div class=\"task\">\n                    <div class=\"check\"></div>\n                    <input type=\"text\" placeholder=\"\u0414\u043E\u0434\u0430\u0442\u0438 \u0437\u0430\u0432\u0434\u0430\u043D\u043D\u044F\" value=\"".concat(item.title, "\" disabled>\n                        <button></button>\n                </div>\n            "));
-      }
-    }
-  }, {
+  _createClass(BranchesList, [{
     key: "init",
     value: function init() {
-      this.getData();
+      console.log(this);
     }
   }]);
 
-  return Todo;
+  return BranchesList;
 }();
 
-var todo = new Todo();
-todo.init();
+var branchesList = new BranchesList();
+branchesList.init();
 
 /***/ }),
 
-/***/ 0:
-/*!**************************************************************************************************!*\
-  !*** multi ./src/js/task-1.js ./src/css/task-1.scss ./src/css/task-2.scss ./src/css/task-3.scss ***!
-  \**************************************************************************************************/
+/***/ 2:
+/*!********************************!*\
+  !*** multi ./src/js/task-3.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/js/task-1.js */"./src/js/task-1.js");
-__webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/css/task-1.scss */"./src/css/task-1.scss");
-__webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/css/task-2.scss */"./src/css/task-2.scss");
-module.exports = __webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/css/task-3.scss */"./src/css/task-3.scss");
+module.exports = __webpack_require__(/*! /Users/ivanknys/Documents/academy-homework/Yurii/homework-api-privatbank/src/js/task-3.js */"./src/js/task-3.js");
 
 
 /***/ })
