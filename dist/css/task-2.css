@@ -88,6 +88,26 @@ body {
   font-size: 16px;
   font-weight: 400;
 }
+.currency-converter .rate-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: url("../../src/img/rate-bg.jpg") center/cover;
+}
+.currency-converter .rate-date select {
+  height: 30px;
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  padding: 0 5px;
+  font-size: 16px;
+}
+.currency-converter .rate-date span {
+  font-weight: 400;
+  font-size: 16px;
+}
 .currency-converter .content {
   background: #dddddd;
   padding: 20px 10px;

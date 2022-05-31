@@ -31,6 +31,26 @@ body {
       font-weight: 400;
     }
   }
+  .rate-date {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: url("../../src/img/rate-bg.jpg") center/cover;
+    select {
+      height: 30px;
+      background: rgba(255,255,255,0.4);
+      border: none;
+      border-radius: 4px;
+      outline: none;
+      padding: 0 5px;
+      font-size: 16px;
+    }
+    span {
+      font-weight: 400;
+      font-size: 16px;
+    }
+  }
   .content {
     background: #dddddd;
     padding: 20px 10px;
@@ -109,9 +129,6 @@ body {
       border-radius: 4px;
       font-size: 16px;
     }
-    //&.switched {
-    //  flex-direction: column-reverse;
-    //}
   }
 }
 

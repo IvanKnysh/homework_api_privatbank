@@ -114,71 +114,117 @@ var CurrencyConverter = /*#__PURE__*/function () {
     this.receive = document.querySelector('[name=receive]');
     this.changeSelect = document.querySelector('#changing-select');
     this.receiveSelect = document.querySelector('#receive-select');
+    this.rateSelect = document.querySelector('#rate');
     this.content = document.querySelector('.content');
-    this.getCurrencyAPI = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
+    this.getCurrencyCashAPI = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
+    this.getCurrencyNonCashAPI = 'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11';
   }
 
   _createClass(CurrencyConverter, [{
+    key: "currentDate",
+    value: function currentDate() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var yyyy = today.getFullYear();
+      today = dd + '.' + mm + '.' + yyyy;
+      document.querySelector('#date').innerHTML = today;
+    }
+  }, {
     key: "basic",
     value: function basic() {
       this.changeSelect.insertAdjacentHTML('beforeend', "<option value=\"1\">UAH</option>");
       this.receiveSelect.insertAdjacentHTML('beforeend', "<option value=\"1\">UAH</option>");
     }
   }, {
+    key: "cashAndNonCashRate",
+    value: function cashAndNonCashRate(request) {
+      var _this = this;
+
+      this.rateSelect.addEventListener('change', function (e) {
+        var target = e.target;
+
+        if (target.value === 'non-cash') {
+          _this.changeSelect.innerHTML = '';
+          _this.receiveSelect.innerHTML = '';
+          _this.change.value = '';
+          _this.receive.value = '';
+
+          _this.basic();
+
+          request.open('GET', _this.getCurrencyNonCashAPI);
+          request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          request.send();
+        } else {
+          _this.changeSelect.innerHTML = '';
+          _this.receiveSelect.innerHTML = '';
+          _this.change.value = '';
+          _this.receive.value = '';
+
+          _this.basic();
+
+          request.open('GET', _this.getCurrencyCashAPI);
+          request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+          request.send();
+        }
+      });
+    }
+  }, {
     key: "getData",
     value: function getData() {
-      var _this = this;
+      var _this2 = this;
 
       var request = new XMLHttpRequest();
       request.addEventListener('readystatechange', function () {
         if (request.readyState === 4 && request.status === 200) {
           var data = JSON.parse(request.responseText);
           data.forEach(function (item) {
-            if (item.ccy !== 'BTC') {
-              _this.changeSelect.insertAdjacentHTML('beforeend', "<option value=\"".concat(item.buy, "\">").concat(item.ccy, "</option>"));
+            if (item.ccy !== 'BTC' && item.ccy !== 'RUR') {
+              _this2.changeSelect.insertAdjacentHTML('beforeend', "<option value=\"".concat(item.buy, "\">").concat(item.ccy, "</option>"));
 
-              _this.receiveSelect.insertAdjacentHTML('beforeend', "<option value=\"".concat(item.sale, "\">").concat(item.ccy, "</option>"));
+              _this2.receiveSelect.insertAdjacentHTML('beforeend', "<option value=\"".concat(item.sale, "\">").concat(item.ccy, "</option>"));
             }
           });
         }
       });
-      request.open('GET', this.getCurrencyAPI);
+      request.open('GET', this.getCurrencyCashAPI);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
       request.send();
+      this.cashAndNonCashRate(request);
     }
   }, {
     key: "changeCurrencyValue",
     value: function changeCurrencyValue() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.content.addEventListener('click', function (e) {
         var target = e.target;
-        var changeSelectValue = _this2.changeSelect.value;
-        var receiveSelectValue = _this2.receiveSelect.value;
+        var changeSelectValue = _this3.changeSelect.value;
+        var receiveSelectValue = _this3.receiveSelect.value;
 
         if (target.id === 'equals') {
-          _this2.receive.value = (changeSelectValue / receiveSelectValue * _this2.change.value).toFixed(2);
+          _this3.receive.value = (changeSelectValue / receiveSelectValue * _this3.change.value).toFixed(2);
         }
       });
     }
   }, {
     key: "switchCurrencies",
     value: function switchCurrencies() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.content.addEventListener('click', function (e) {
         var target = e.target;
-        var change = _this3.change.value;
-        var receive = _this3.receive.value;
-        var changeSelectIndex = _this3.changeSelect.options.selectedIndex;
-        var receiveSelectIndex = _this3.receiveSelect.options.selectedIndex;
+        var change = _this4.change.value;
+        var receive = _this4.receive.value;
+        var changeSelectIndex = _this4.changeSelect.options.selectedIndex;
+        var receiveSelectIndex = _this4.receiveSelect.options.selectedIndex;
 
         if (target.id === 'switch') {
-          if (_this3.change.value !== '' && _this3.receive.value !== '') {
-            _this3.change.value = receive;
-            _this3.receive.value = change;
-            _this3.changeSelect.selectedIndex = receiveSelectIndex;
-            _this3.receiveSelect.selectedIndex = changeSelectIndex;
+          if (_this4.change.value !== '' && _this4.receive.value !== '') {
+            _this4.change.value = receive;
+            _this4.receive.value = change;
+            _this4.changeSelect.selectedIndex = receiveSelectIndex;
+            _this4.receiveSelect.selectedIndex = changeSelectIndex;
             document.querySelector('#equals').click();
           }
         }
@@ -187,6 +233,7 @@ var CurrencyConverter = /*#__PURE__*/function () {
   }, {
     key: "init",
     value: function init() {
+      this.currentDate();
       this.basic();
       this.getData();
       this.changeCurrencyValue();
