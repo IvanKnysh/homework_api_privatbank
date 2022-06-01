@@ -77,8 +77,10 @@ body {
 .currency-converter .title {
   display: flex;
   align-items: center;
-  background: linear-gradient(180deg, rgb(161, 244, 185) 0%, rgba(48, 204, 78, 0.85) 50%);
+  background: linear-gradient(180deg, #e2f1e3 0%, #a2d0a5 50%, #7fbe83 50%, #9fcfa2 100%);
   padding: 20px 15px;
+  color: #333;
+  border-bottom: 2px solid #96c899;
 }
 .currency-converter .title img {
   width: 20px;
@@ -109,7 +111,7 @@ body {
   font-size: 16px;
 }
 .currency-converter .content {
-  background: #dddddd;
+  background: #e3e3e3;
   padding: 20px 10px;
   display: flex;
   flex-direction: column;
@@ -134,9 +136,9 @@ body {
   margin: 20px 0;
 }
 .currency-converter .content .btns button#equals {
-  width: 50px;
-  height: 40px;
-  background: red;
+  width: 60px;
+  height: 50px;
+  background: linear-gradient(180deg, #f0787d 0%, #e0001a 50%);
   border-radius: 4px;
   text-align: center;
   line-height: 40px;
@@ -147,19 +149,18 @@ body {
   outline: none;
 }
 .currency-converter .content .btns button#switch {
-  width: 50px;
-  height: 40px;
+  width: 65px;
+  height: 50px;
   border-radius: 4px;
   border: 1px solid #aaaaaa;
   margin-left: 5px;
   cursor: pointer;
   outline: none;
-  background: url("../../src/img/arrow.png") no-repeat 50% 50%;
-  background-size: 17px 30px;
+  background: url("../../src/img/arrow.png") no-repeat 50% 50%/17px 30px, linear-gradient(180deg, #f1f1f1 0%, #f1f1f1 50%, #eaeaea 50%);
 }
 .currency-converter .content input {
   width: calc(100% - 70px);
-  height: 40px;
+  height: 50px;
   padding: 0 5px;
   outline: none;
   box-sizing: border-box;
@@ -168,9 +169,10 @@ body {
   border-radius: 4px;
   font-size: 20px;
   color: #000;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #fffbd2 50%, #fffbd2 100%);
 }
 .currency-converter .content input:disabled {
-  background: #fff;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #fffbd2 50%, #fffbd2 100%);
 }
 .currency-converter .content input[type=number]::-webkit-outer-spin-button, .currency-converter .content input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -179,10 +181,11 @@ body {
 }
 .currency-converter .content select {
   width: 65px;
-  height: 40px;
+  height: 50px;
   box-sizing: border-box;
   outline: none;
   border: 2px solid #aaa;
   border-radius: 4px;
   font-size: 16px;
+  background: linear-gradient(180deg, #ffffff 0%, #ffffff 50%, #fffbd2 50%, #fffbd2 100%);
 }
