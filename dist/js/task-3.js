@@ -109,12 +109,30 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var BranchesList = /*#__PURE__*/function () {
   function BranchesList() {
     _classCallCheck(this, BranchesList);
+
+    this.branchesList = document.querySelector('#branches-list');
+    this.output = document.querySelector('.output');
+    this.getAllDataAPI = 'https://api.privatbank.ua/p24api/pboffice?json';
   }
 
   _createClass(BranchesList, [{
+    key: "getData",
+    value: function getData() {
+      var request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', function () {
+        if (request.readyState === 4 && request.status === 200) {
+          var data = JSON.parse(request.responseText);
+          console.log(data);
+        }
+      });
+      request.open('GET', this.getAllDataAPI);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      request.send();
+    }
+  }, {
     key: "init",
     value: function init() {
-      console.log(this);
+      this.getData();
     }
   }]);
 
