@@ -39,7 +39,7 @@ class BranchesList {
             });
 
             request.open('GET', './privat.json');
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            request.setRequestHeader('Content-Type', 'application/json');
             request.send();
         });
     }
