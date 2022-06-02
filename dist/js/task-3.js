@@ -112,22 +112,32 @@ var BranchesList = /*#__PURE__*/function () {
 
     this.branchesList = document.querySelector('#branches-list');
     this.output = document.querySelector('.output');
-    this.getAllDataAPI = 'https://api.privatbank.ua/p24api/pboffice?json';
   }
 
   _createClass(BranchesList, [{
     key: "getData",
     value: function getData() {
-      var request = new XMLHttpRequest();
-      request.addEventListener('readystatechange', function () {
-        if (request.readyState === 4 && request.status === 200) {
-          var data = JSON.parse(request.responseText);
-          console.log(data);
-        }
+      var _this = this;
+
+      this.branchesList.addEventListener('change', function () {
+        var request = new XMLHttpRequest();
+        _this.output.innerHTML = '';
+        request.addEventListener('readystatechange', function () {
+          if (request.readyState === 4 && request.status === 200) {
+            var data = JSON.parse(request.responseText);
+            data.forEach(function (item) {
+              if (item.country === 'Украина') {
+                if (item.state === _this.branchesList.value) {
+                  _this.output.insertAdjacentHTML('beforeend', "\n                                    <div class=\"block\">\n                                        <img src=\"./src/img/logo.png\" alt=\"\">\n                                        <p><span>\u041E\u0442\u0434\u0435\u043B\u0435\u043D\u0438\u0435:</span> ".concat(item.name, "</p>  \n                                        <p><span>\u0410\u0434\u0440\u0435\u0441:</span> ").concat(item.address, "</p>  \n                                        <p><span>\u0413\u043E\u0440\u043E\u0434:</span> ").concat(item.city, "</p>  \n                                        <p><span>\u0422\u0435\u043B.:</span> ").concat(item.phone, "</p>  \n                                        <p><span>Email:</span> ").concat(item.email, "</p>  \n                                        <p><span>\u0418\u043D\u0434\u0435\u043A\u0441:</span> ").concat(item.index, "</p>  \n                                    </div>\n                                "));
+                }
+              }
+            });
+          }
+        });
+        request.open('GET', './privat.json');
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send();
       });
-      request.open('GET', this.getAllDataAPI);
-      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      request.send();
     }
   }, {
     key: "init",
